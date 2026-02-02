@@ -12,9 +12,6 @@ const baseURL = import.meta.env.VITE_API_URL
 const api = axios.create({
   baseURL: baseURL,  
   timeout: 30000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
 })
 
 export const uploadFile = async (file) => {
