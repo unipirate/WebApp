@@ -1,0 +1,91 @@
+# Python related
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Python virtual environments
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Packaging files
+*.egg-info/
+dist/
+build/
+
+# Django related
+*.log
+
+# SQLite database files
+db.sqlite3
+db.sqlite3-journal
+
+# media and static files
+/media
+/staticfiles
+
+# env files
+.env
+.env.local
+.env.*.local
+
+# IDE settings
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Node.js related
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# frontend build outputs
+frontend/dist/
+frontend/build/
+
+# OS generated files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# User uploaded files (safety net)
+uploads/
+
+# Prevent committing test data files
+*.csv
+*.xlsx
+*.xls
+
+# Test coverage reports
+htmlcov/
+.coverage
+.pytest_cache/
+coverage/
+
+# Other temporary files
+*.tmp
+*.temp
+.cache/
