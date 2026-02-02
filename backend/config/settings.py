@@ -2,6 +2,10 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+ALLOWED_HOSTS = ['*']
+
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,17 +81,15 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
+CORS_ALLOWED_ORIGINS = True
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
 
 GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-3-flash-preview')
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
