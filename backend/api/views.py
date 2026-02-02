@@ -6,6 +6,7 @@ from utils.file_parser import FileParser
 from utils.llm_service import LLMService
 from utils.regex_processor import RegexProcessor
 from rest_framework.exceptions import ValidationError
+from django.http import HttpResponse
 
 @api_view(['POST'])
 def UploadFileView(request):
@@ -141,3 +142,12 @@ def ProcessDataView(request):
             },
             status=500
         )
+
+def home(request):
+    return HttpResponse("""
+        <div style='text-align: center; padding-top: 50px; font-family: sans-serif;'>
+            <h1>Backend is Live!</h1>
+            <p>Django server is running perfectly on Render.</p>
+            <p>Please access the <a href='https://web-app-delta-three-95.vercel.app'>Frontend Here</a></p>
+        </div>
+    """)
