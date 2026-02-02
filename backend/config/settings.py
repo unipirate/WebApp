@@ -81,7 +81,12 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "https://web-app-delta-three-95.vercel.app/",
+    "http://localhost:3000",
+    "http://localhost:5173",
+]
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
 
