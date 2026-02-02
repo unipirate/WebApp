@@ -2,10 +2,6 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-ALLOWED_HOSTS = ['*']
-
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,10 +23,10 @@ TEMPLATES = [
     },
 ]
 
+ALLOWED_HOSTS = ['*']
+
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'key')
 DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
-
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -88,7 +84,16 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://web-app-delta-three-95.vercel.app",
+    "https://webapp-5jpr.onrender.com",
+    "http://localhost:3000",
+    "http://localhost:5173",
+]
+
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-3-flash-preview')
 
