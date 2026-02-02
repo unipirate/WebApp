@@ -20,25 +20,46 @@ class FileParser:
         try:
             if file_extension == '.csv':
                 try:
-                    df = pd.read_csv(io.BytesIO(file_content), encoding='utf-8')
+                    df_preview = pd.read_csv(io.BytesIO(file_data), header=None, nrows=20, encoding='utf-8')
                 except UnicodeDecodeError:
-                    df = pd.read_csv(io.BytesIO(file_content), encoding='latin1')
+                    df_preview = pd.read_csv(io.BytesIO(file_data), header=None, nrows=20, encoding='gbk')
             else:
-                df = pd.read_excel(io.BytesIO(file_content))
+                df_preview = pd.read_excel(io.BytesIO(file_data), header=None, nrows=20)
                 
-            ddf = df.replace([np.inf, -np.inf], np.nan)
-            df = df.dropna(how='all')
-            df = df.astype(object) 
-            df = df.where(pd.notnull(df), "")
+            max_valid_cols = 0
+            header_row_index = 0
+
+            for i, row in df_preview.iterrows():
+                valid_count = 0
+                for cell in row:
+                    cell_str = str(cell).strip()
+                    if pd.notna(cell) and cell_str and 'unnamed' not in cell_str.lower():
+                        valid_count += 1
+                
+                if valid_count > max_valid_cols:
+                    max_valid_cols = valid_count
+                    header_row_index = i
             
             columns = list(df.columns)
             data = df.to_dict('records')
 
+            if file_extension == '.csv':
+                try:
+                    df = pd.read_csv(io.BytesIO(file_data), header=header_row_index, encoding='utf-8')
+                except UnicodeDecodeError:
+                    df = pd.read_csv(io.BytesIO(file_data), header=header_row_index, encoding='gbk')
+            else:
+                df = pd.read_excel(io.BytesIO(file_data), header=header_row_index)
+
+            df.dropna(how='all', inplace=True)
+            df.dropna(axis=1, how='all', inplace=True)
+            df = df.fillna("")
+
             return {
-                'data': data,
-                'columns': columns,
+                'data': df.to_dict(orient='records'),
+                'columns': list(df.columns),
                 'row_count': len(df),
-                'column_count': len(columns)
+                'column_count': len(df.columns)
             }
         except Exception as e:
             raise ValueError(f"Error parsing file: {str(e)}")
