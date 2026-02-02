@@ -7,7 +7,7 @@ class FileParser:
     SUPPORTED_EXTENSIONS = ['.csv', '.xlsx', '.xls']
 
     @staticmethod
-    def parse_file(file_content: bytes,file_name: str)  -> Dict[str, Any]:
+    def parse_file(file_data: bytes,file_name: str)  -> Dict[str, Any]:
         file_extension = None
         for ext in FileParser.SUPPORTED_EXTENSIONS:
             if file_name.lower().endswith(ext):
@@ -39,9 +39,6 @@ class FileParser:
                 if valid_count > max_valid_cols:
                     max_valid_cols = valid_count
                     header_row_index = i
-            
-            columns = list(df.columns)
-            data = df.to_dict('records')
 
             if file_extension == '.csv':
                 try:
@@ -66,11 +63,11 @@ class FileParser:
 
     @staticmethod
     def validate_file(
-        file_content: bytes, 
+        file_data: bytes, 
         file_name: str,
         max_size: int = 10 * 1024 * 1024
     ) -> bool:
-        if len(file_content) > max_size:
+        if len(file_data) > max_size:
             raise ValueError("File size exceeds the maximum limit.")
         
         file_extension = None
