@@ -6,7 +6,7 @@ This project leverages **Google Gemini LLM** to function as an autonomous agent.
 
 
 ## Live Demo
-- **Frontend (Live Website):** [Vercel](https://web-app-delta-three-95.vercel.app)
+- **Frontend (Live Website):** [Vercel](https://web-app-silk-two.vercel.app)
 - **Backend API:** [Render](https://webapp-5jpr.onrender.com) (Hosted on Render)
 - **Demo Video:** [Watch the vidwo](https://www.loom.com/share/622873d4f0d24b63a236027b2bc4e4ba)
 
